@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/api-gateway/api-gateway.iml" filepath="$PROJECT_DIR$/api-gateway/api-gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eureka/eureka.iml" filepath="$PROJECT_DIR$/eureka/eureka.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/microservices-demo.iml" filepath="$PROJECT_DIR$/.idea/microservices-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/orders/orders.iml" filepath="$PROJECT_DIR$/orders/orders.iml" />
+      <module fileurl="file://$PROJECT_DIR$/products/products.iml" filepath="$PROJECT_DIR$/products/products.iml" />
+    </modules>
+  </component>
+</project>
