@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="api-gateway" />
         <module name="orders" />
+        <module name="products-lookup" />
         <module name="eureka" />
         <module name="products" />
       </profile>
@@ -18,6 +19,7 @@
       <module name="eureka" target="11" />
       <module name="orders" target="11" />
       <module name="products" target="11" />
+      <module name="products-lookup" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -26,6 +28,7 @@
       <module name="eureka" options="-parameters" />
       <module name="orders" options="-parameters" />
       <module name="products" options="-parameters" />
+      <module name="products-lookup" options="-parameters" />
     </option>
   </component>
 </project>
