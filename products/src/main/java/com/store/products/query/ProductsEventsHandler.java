@@ -1,7 +1,8 @@
 package com.store.products.query;
 
-import com.store.products.core.client.ProductLookupDto;
-import com.store.products.core.client.ProductsLookupClient;
+import com.store.shared.core.events.ProductReservedEvent;
+import com.store.products.core.clients.ProductLookupDto;
+import com.store.products.core.clients.ProductsLookupClient;
 import com.store.products.core.data.Product;
 import com.store.products.core.data.ProductsRepository;
 import com.store.products.core.events.ProductCreatedEvent;
@@ -11,6 +12,8 @@ import org.axonframework.messaging.interceptors.ExceptionHandler;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Optional;
 
 @Component
 @ProcessingGroup("product-group")
@@ -42,5 +45,19 @@ public class ProductsEventsHandler {
         productLookupDto.setTitle(product.getTitle());
         productLookupDto.setId(product.getId());
         productsLookupClient.addProductLookup(productLookupDto);
+    }
+
+    @EventHandler
+    public void on(ProductReservedEvent productReservedEvent) throws Exception {
+        String productId = productReservedEvent.getProductId();
+        Optional<Product> productOptional = productsRepository.findById(productId);
+        if(productOptional.isEmpty()) {
+            throw new Exception(String.format("Product with id %s not found", productId));
+        }
+
+        Product product = productOptional.get();
+        product.setQuantity(product.getQuantity() - productReservedEvent.getQuantity());
+        productsRepository.save(product);
+
     }
 }

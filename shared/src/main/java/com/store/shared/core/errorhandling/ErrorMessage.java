@@ -1,4 +1,4 @@
-package com.store.products.core.errorhandling;
+package com.store.shared.core.errorhandling;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

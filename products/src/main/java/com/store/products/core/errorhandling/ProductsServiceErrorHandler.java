@@ -1,5 +1,6 @@
 package com.store.products.core.errorhandling;
 
+import com.store.shared.core.errorhandling.ErrorMessage;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

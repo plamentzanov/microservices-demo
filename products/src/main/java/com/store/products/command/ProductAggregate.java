@@ -1,7 +1,8 @@
 package com.store.products.command;
 
+import com.store.shared.commands.ReserveProductCommand;
+import com.store.shared.core.events.ProductReservedEvent;
 import com.store.products.core.events.ProductCreatedEvent;
-import lombok.NoArgsConstructor;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
@@ -12,7 +13,6 @@ import org.springframework.beans.BeanUtils;
 import java.math.BigDecimal;
 
 @Aggregate
-@NoArgsConstructor
 public class ProductAggregate {
 
     @AggregateIdentifier
@@ -21,11 +21,26 @@ public class ProductAggregate {
     private BigDecimal price;
     private Integer quantity;
 
+    public ProductAggregate(){};
+
     @CommandHandler
     public ProductAggregate(CreateProductCommand createProductCommand) {
         ProductCreatedEvent productCreatedEvent = new ProductCreatedEvent();
         BeanUtils.copyProperties(createProductCommand, productCreatedEvent);
         AggregateLifecycle.apply(productCreatedEvent);
+    }
+
+    @CommandHandler
+    public void handle(ReserveProductCommand reserveProductCommand) throws Exception{
+        if(quantity < reserveProductCommand.getQuantity()) {
+            throw new Exception("Insufficient number of items in stock");
+        }
+
+        ProductReservedEvent productReservedEvent = new ProductReservedEvent();
+        BeanUtils.copyProperties(reserveProductCommand, productReservedEvent);
+
+        AggregateLifecycle.apply(productReservedEvent);
+
     }
 
     @EventSourcingHandler
@@ -34,6 +49,11 @@ public class ProductAggregate {
         title = productCreatedEvent.getTitle();
         price = productCreatedEvent.getPrice();
         quantity = productCreatedEvent.getQuantity();
+    }
+
+    @EventSourcingHandler
+    public void on(ProductReservedEvent productReservedEvent) {
+        this.quantity -= productReservedEvent.getQuantity();
     }
 
 }

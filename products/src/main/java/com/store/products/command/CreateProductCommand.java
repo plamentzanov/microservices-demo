@@ -7,7 +7,6 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier;
 import java.math.BigDecimal;
 
 @Data
-@NoArgsConstructor
 public class CreateProductCommand {
 
     @TargetAggregateIdentifier

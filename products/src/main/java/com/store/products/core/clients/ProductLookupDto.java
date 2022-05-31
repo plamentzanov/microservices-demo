@@ -1,4 +1,4 @@
-package com.store.products.core.client;
+package com.store.products.core.clients;
 
 import lombok.Data;
 

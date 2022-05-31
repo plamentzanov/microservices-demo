@@ -1,8 +1,8 @@
 package com.store.products.command.interceptors;
 
 import com.store.products.command.CreateProductCommand;
-import com.store.products.core.client.ProductLookupDto;
-import com.store.products.core.client.ProductsLookupClient;
+import com.store.products.core.clients.ProductLookupDto;
+import com.store.products.core.clients.ProductsLookupClient;
 import org.axonframework.commandhandling.CommandMessage;
 import org.axonframework.messaging.MessageDispatchInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +39,6 @@ public class CreateProductCommandInterceptor implements MessageDispatchIntercept
                 } catch (Exception exception) {
                     throwIllegalStateException(createProductCommand);
                 }
-
             }
 
             return command;
